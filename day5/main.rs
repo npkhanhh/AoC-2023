@@ -97,30 +97,15 @@ fn part2() -> i64 {
         }
         for &(a, b) in &sorted_seeds {
             if a <= t && t <= b {
-                has_res = true;
-                break;
+                return seed;
             }
         }
         if has_res {
             break;
         }
-        seed += 1000;
+        seed += 1;
         if seed % 1000000 == 0 {
             println!("{}", seed);
-        }
-    }
-    for seed in (seed - 1001)..(seed + 1) {
-        let mut t = seed;
-        for m in map.clone().into_iter().rev() {
-            match m.binary_search_by_key(&t, |v| v[0]) {
-                Ok(pos) => t = m[pos][1] + (t - m[pos][0]),
-                Err(pos) => t = m[pos - 1][1] + (t - m[pos - 1][0]),
-            }
-        }
-        for &(a, b) in &sorted_seeds {
-            if a <= t && t <= b {
-                return seed;
-            }
         }
     }
     res
